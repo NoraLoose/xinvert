@@ -9,7 +9,7 @@ Welcome to xinvert's documentation!
 .. image:: https://raw.githubusercontent.com/miniufo/xinvert/master/pics/animateConverge.gif
 
 This is a `Python` package to invert or solve many classical problems in
-atmospheric sciences and physical oceanography.  This geophysical fluid dynamics
+atmospheric sciences and physical oceanography.  These geophysical fluid dynamics
 (GFD) problems are formulated as second-order partial differential equations
 (PDEs), and can be inverted using success-over relaxation (SOR) iteration with
 proper boundary conditions.  This project is

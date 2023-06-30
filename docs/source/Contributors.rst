@@ -6,16 +6,16 @@
 Contributors
 ============
 
-`xinvert` is meant to be a open-source package and we welcome feedback and contributions.
+`xinvert` is meant to be an open-source package and we welcome feedback and contributions.
 
 You can `open an issue in the github issues page <https://github.com/miniufo/xinvert/issues>`__ if you:
 
 - find a bug in the package;
 - need some new features;
-- want some supports;
+- want some support;
 - have your own examples.
 
-If you have a cool or new example that can be fit into `xinvert`, please consider contributing to `Examples <https://github.com/miniufo/xinvert/tree/master/docs/source/notebooks>`__ in a form of Jupyter Notebook.  Generally, the notebook contains:
+If you have a cool or new example that can be fit into `xinvert`, please consider contributing to `Examples <https://github.com/miniufo/xinvert/tree/master/docs/source/notebooks>`__ in the form of a Jupyter Notebook.  Generally, the notebook contains:
 
 - an introduction of the problem;
 - a mathematical formulation of the problem into an elliptic equation;
@@ -24,7 +24,7 @@ If you have a cool or new example that can be fit into `xinvert`, please conside
 In order to contribute to `xinvert`, please
 
 - fork the repository,
-- modify the codes, and
+- modify the code, and
 - send a pull request (PR).
 
 We are looking forward to your contributions.
