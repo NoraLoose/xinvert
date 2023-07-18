@@ -41,7 +41,7 @@ Once $\zeta$ is given as a known, one needs to get the unknown $\psi$ with prope
 ![(a) Vertical relative vorticity $\zeta$ and (b) the inverted streamfunction $\psi$ (shading) with current vector superimposed.  Note the irregular boundaries over the global ocean. \label{fig:1}](streamfunction.png){width=100%}
 
 # State of the field
-There are also several PDE solvers written in Python, like [**windspharm**](https://github.com/ajdawson/windspharm) and [**Dedalus**](https://github.com/DedalusProject/dedalus).  While they are efficient and accurate in double-periodic or global domains using the spectral method, they may not be suitable for an arbitary domain or boundary like the ocean (Gibbs phenomenon will arise near ocean boundaries).  Also, it is not easy to apply these solvers to more general elliptic equations with arbitary coefficients (sometimes given in a numerical or discretized fashion).  In this case, the SOR method is a better choice in the presence of an irregular land/sea mask and with spatially-varying coefficients.
+There are also several PDE solvers written in Python, like **windspharm** [@Dawson:2016] and **Dedalus** [@Burns:2020].  While they are efficient and accurate in double-periodic or global domains using the spectral method, they may not be suitable for an arbitary domains or boundaries like the ocean (Gibbs phenomenon will arise near ocean boundaries).  Also, it is not easy to apply these solvers to more general elliptic equations with arbitary coefficients (sometimes given in a numerical or discretized fashion).  In these cases, the successive over relaxation (SOR) method should be a better choice.
 
 # Mathematics
 
@@ -55,7 +55,7 @@ For the 2D case, the **general form** of Eq. \eqref{eq:1} is:
 
 $$L\left(\psi\right) \equiv A_1\frac{\partial^2 \psi}{\partial y^2}+A_2\frac{\partial^2 \psi}{\partial y \partial x}+A_3\frac{\partial^2 \psi}{\partial x^2}+A_4\frac{\partial \psi}{\partial y}+A_5\frac{\partial \psi}{\partial x}+A_6\psi = F \label{eq:2} \tag{2}$$
 
-where coefficients $A_1-A_6$ are all known variables.  When the condition $4A_1 A_3-A_2^2>0$ is met everywhere in the domain, the above equation is an elliptic-type equation.  In this case, one can invert $\psi$ using the **successive over relaxation (SOR)** iteration method.  When $4A_1 A_3-A_2^2=0$ or $4A_1 A_3-A_2^2<0$, it is a parabolic or hyperbolic equation.  In either case, SOR would *fail* to converge to the solution.
+where coefficients $A_1-A_6$ are all known variables.  When the condition $4A_1 A_3-A_2^2>0$ is met everywhere in the domain, the above equation is an elliptic-type equation.  In this case, one can invert $\psi$ using the **SOR** iteration method.  When $4A_1 A_3-A_2^2=0$ or $4A_1 A_3-A_2^2<0$, it is a parabolic or hyperbolic equation.  In either case, SOR would *fail* to converge to the solution.
 
 Sometimes the **general form** of Eq. \eqref{eq:2} can be transformed into the **standard form** (i.e., standardization):
 
@@ -85,7 +85,7 @@ So we implement four basic solvers to take into account the above four Eqs. \eqr
 
 - All the classical balanced GFD models can be inverted by this unified numerical solver;
 - User APIs (\autoref{table:1}) are very close to the equations: unknowns are on the left-hand side of the equal sign `=`, whereas the known forcing functions are on its right-hand side (other known coefficients are also on the left-hand side but are passed in through `mParams`);
-- Passing a single `xarray.DataArray` is usually enough for the inversion. Coordinates information is already encapsulated and thus reducing the length of the parameter list.  In addition, parameters in `mParams` can be either a constant, or varying with a specific dimension (like the Coriolis parameter $f$), or fully varying with space and time, due to the use of `xarray`'s [@Hoyer:2017] broadcasting capability;
+- Passing a single `xarray.DataArray` is usually enough for the inversion. The fact that coordinate information is already encapsulated reduces the length of the parameter list.  In addition, parameters in `mParams` can be either a constant, or varying with a specific dimension (like the Coriolis parameter $f$), or fully varying with space and time, due to the use of `xarray`'s [@Hoyer:2017] broadcasting capability;
 - This package leverages `numba` [@Lam:2015] and `dask` [@Rocklin:2015] to support Just-In-Time (JIT) compilation, multi-core, and out-of-core computations, and therefore greatly increases the speed and efficiency of the inversion.
 
 Here we summarize some inversion problems in meteorology and oceanography into \autoref{table:1}.  The table can be extended further if one finds more problems that fit the abstract form of Eq. \eqref{eq:1}.
